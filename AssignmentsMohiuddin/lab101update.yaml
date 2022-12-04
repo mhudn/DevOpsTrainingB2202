@@ -1,0 +1,12 @@
+Parameters:
+  UpdateName:
+    Description: This is a template to update S3 Bucket name (mohi-lab101) with parameters (mohi-lab101-updated)
+    Type: String
+
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref UpdateName
+#aws cloudformation validate-template --template-body file://lab101update.yaml
+#aws cloudformation update-stack --stack-name s3 --template-body file://lab101update.yaml --parameters file://parameter.json

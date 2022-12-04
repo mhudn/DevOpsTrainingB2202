@@ -1,0 +1,10 @@
+Description: This is a template to create a S3 bucket
+Resources:
+  S3Bucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: mohi-lab101
+
+
+#aws cloudformation create-stack --stack-name s3 --template-body file://lab101.yaml
+#aws cloudformation create-stack --stack-name s3 --template-body file://lab101update.yaml --parameters file://parameter.json

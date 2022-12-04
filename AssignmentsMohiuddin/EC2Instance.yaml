@@ -1,0 +1,15 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: This is a template to create a EC2 Instance in AWS
+
+Resources:
+  InstanceName:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-0b0dcb5067f052a63
+      InstanceType: t2.micro
+      KeyName: AWS_KeyPair
+
+
+
+#aws cloudformation validate-template --template-body file://EC2Instance.yaml
+#aws cloudformation create-stack --stack-name ec2instance --template-body file://EC2Instance.yaml
