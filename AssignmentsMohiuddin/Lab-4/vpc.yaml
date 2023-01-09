@@ -1,0 +1,105 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: This template creates VPC with private subnets
+
+Parameters:
+  vpcCIDR:
+    Description: This is a VPC CIDR Block
+    Type: String
+
+  PublicSubnetCIDR:
+    Description: This is a Public CIDR Block
+    Type: String
+
+
+Resources:
+# Create a VPC
+  TestVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsHostnames: true
+      EnableDnsSupport: true
+      InstanceTenancy: default
+      Tags:
+        - Key: user
+          Value: Mohi
+        - Key: izaan-lesson
+          Value: 4.1
+        - Key: izaan-lab
+          Value: 4.1.1
+
+# Creating a Public Subnet
+  PublicSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: us-east-1a
+      CidrBlock: !Ref PublicSubnetCIDR
+      Tags:
+        - Key: user
+          Value: Mohi
+        - Key: izaan-lesson
+          Value: 4.1
+        - Key: izaan-lab
+          Value: 4.1.1
+      VpcId: !Ref TestVPC
+
+# Create a InternetGateway
+
+InternetGateway1:
+  Type: AWS::EC2::InternetGateway
+  Properties:
+    Tags:
+      - Key: Name
+        Value: Lab-IGW
+
+# Attaching IGW
+InternetGatewayAttachment1:
+  Type: AWS::EC2::VPCGatewayAttachment
+  Properties:
+    InternetGatewayId: !GetAtt InternetGatewayOne.InternetGatewayId
+    VpcId: !Ref TestVPC
+
+
+# Create a Route Table
+RouteTableForLab4:
+  Type: AWS::EC2::RouteTable
+  Properties:
+    Tags:
+      - Key: Name
+        Value: RouteTableLab4
+    VpcId: !Ref TestVPC
+
+
+PublicRoute1:
+  Type: AWS::EC2::Route
+  Properties:
+    DestinationCidrBlock: 0.0.0.0/0
+    GatewayId: !GetAtt InternetGatewayOne.InternetGatewayId
+    RouteTableId: !Ref RouteTableForLab4
+
+PublicSubnetAssociation:
+  Type: AWS::EC2::SubnetRouteTableAssociation
+  Properties:
+    RouteTableId: !Ref RouteTableForLab4
+    SubnetId: !Ref PublicRoute1
+
+Outputs:
+  vpcID:
+    Description: VPC ID
+    Value: !Ref TestVPC
+    Export:
+      Name: Output-VPC-ID
+
+  PublicSubnet1:
+    Description: Public Subnet ID
+    Value: !Ref PublicSubnet1
+    Export:
+      Name: Output-Public-Subnet
+
+
+
+#aws ec2 create-key-pair \
+#--key-name mohi-pair \
+#--query "KeyMaterial" \
+#--output text > mohi-pair.pem
+
