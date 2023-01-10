@@ -123,6 +123,7 @@ is created:
   - One instance should use a Windows AMI for Microsoft Windows Server
     2016 Base
   - The other instance should be the AMI for Ubuntu 16.04 LTS
+    - **Answer: AssignmentsMohiuddin/IzaanSchoolDevOps/05-ec2/twoEC2Instances.yaml** 
 
 - Launch the instances into the default VPC
 
@@ -132,10 +133,16 @@ Create the stack:
   employs a [waiter](https://docs.aws.amazon.com/cli/latest/reference/cloudformation/wait/index.html)
   so that the script exits only when the CFN service has finished creating the
   stack.
+    - **Answer: AssignmentsMohiuddin/IzaanSchoolDevOps/05-ec2/waiter.sh**
+      - **aws cloudformation create-stack --stack-name ec2-lab512 --template-body file://twoEC2Instances.yaml**
+      - **aws cloudformation wait stack-create-complete --stack-name ec2-lab512**
 
 - Use the AWS CLI to describe the stack's resources, then use the AWS
   CLI to describe each instance that was created.
-
+  - **Answer:**
+    - **Windows Instance: aws cloudformation describe-stack-resources --stack-name ec2-lab512 --logical-resource-id WindowsInstance**
+    - **Ubuntu Instance: aws cloudformation describe-stack-resources --stack-name ec2-lab512 --logical-resource-id UbuntuInstance**
+  
 #### Lab 5.1.3: Update Your Stack
 
 Change the AMI ID for the Windows instance to instead launch an AMI for
