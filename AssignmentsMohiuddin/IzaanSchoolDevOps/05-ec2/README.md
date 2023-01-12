@@ -147,11 +147,15 @@ Create the stack:
 
 Change the AMI ID for the Windows instance to instead launch an AMI for
 Windows Server 2012 R2:
+**(ami-0a7732d66244fa923)**
 
 - Update your Stack.
+  - **Answer: aws cloudformation update-stack --stack-name ec2-lab512 --template-body file://twoEC2InstancesUpdate.yaml --parameters file://ami-ID.json**
 
 - Query the stack's events using the AWS CLI. What happened to your
   original EC2 Windows instance?
+  - **Answer: original EC2 Windows instance was deleted/terminated.**
+  ![img.png](img.png)
 
 #### Lab 5.1.4: Teardown
 
