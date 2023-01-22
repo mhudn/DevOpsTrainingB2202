@@ -1,0 +1,11 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "sam-app-mhudn"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-1ogwzk5qn60"
+s3_prefix = "sam-app-mhudn"
+region = "us-east-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+image_repositories = []
